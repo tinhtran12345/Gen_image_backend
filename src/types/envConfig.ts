@@ -1,5 +1,5 @@
 type EnvConfig = {
-    port: string;
+    port: number;
     dataBaseUrl: string;
     openApiKey: string;
     cloudinary: {
