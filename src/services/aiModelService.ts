@@ -1,6 +1,4 @@
 import { devConfig } from "../configs/config";
-import { generateString } from "../utils/generateString";
-import fs from "node:fs";
 
 class BaseModelService {
     protected apiUrl: string;
@@ -28,17 +26,8 @@ class StableDiffusionModel extends BaseModelService {
         // Write and save image
         const arrayBuffer = await response.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const outputFileName = generateString(8);
-        const outputFilePath = `./public/images/${outputFileName}.jpeg`;
-        const saveImage = await fs
-            .createWriteStream(outputFilePath)
-            .write(buffer);
 
-        return {
-            name: outputFileName,
-            path: outputFilePath,
-            save: saveImage,
-        };
+        return buffer;
     };
 }
 

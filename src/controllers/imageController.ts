@@ -6,6 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import aiModelService from "../services/aiModelService";
 import { AIModel } from "../utils/constant";
 import imageService from "../services/imageService";
+import { convertBufferToImage, generateString } from "../utils/commonFunctions";
 
 class ImageController {
     fetchImage = (req: Request, res: Response) => {
@@ -31,15 +32,22 @@ class ImageController {
                 AIModel[1].modelId
             );
 
-            const result = await model.Post(prompt);
+            const buffer = await model.Post(prompt);
 
-            if (!result.save) {
+            const outputFileName = generateString(8);
+            const outputFilePath = `public/images/${outputFileName}.jpeg`;
+            const saveImage = await convertBufferToImage(
+                outputFilePath,
+                buffer
+            );
+
+            if (saveImage) {
                 // upload image on cloud
 
                 const upLoadImage = await cloudinary.uploader.upload(
-                    result.path,
+                    outputFilePath,
                     {
-                        public_id: result.name,
+                        public_id: outputFileName,
                         folder: "GanDB",
                     }
                 );
