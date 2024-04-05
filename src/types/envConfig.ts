@@ -7,6 +7,7 @@ type EnvConfig = {
         apiKey: string;
         apiSecret: string;
     };
+    stableDiffusionKey: string;
 };
 
 export default EnvConfig;

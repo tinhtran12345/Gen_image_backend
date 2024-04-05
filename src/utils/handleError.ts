@@ -18,7 +18,46 @@ class NotFoundError extends ErrorResponse {
     }
 }
 
+class BadRequestError extends ErrorResponse {
+    constructor(
+        message = ReasonStatusCode.FORBIDDEN,
+        statusCode = StatusCode.FORBIDDEN
+    ) {
+        super(message, statusCode);
+    }
+}
+
+class ConflictError extends ErrorResponse {
+    constructor(
+        message = ReasonStatusCode.CONFLICT,
+        statusCode = StatusCode.CONFLICT
+    ) {
+        super(message, statusCode);
+    }
+}
+class UnAuthorizedError extends ErrorResponse {
+    constructor(
+        message = ReasonStatusCode.UNAUTHORIZED,
+        statusCode = StatusCode.UNAUTHORIZED
+    ) {
+        super(message, statusCode);
+    }
+}
+
+class ServerError extends ErrorResponse {
+    constructor(
+        message = ReasonStatusCode.SERVERERROR,
+        statusCode = StatusCode.SERVERERROR
+    ) {
+        super(message, statusCode);
+    }
+}
+
 export default {
     ErrorResponse,
     NotFoundError,
+    BadRequestError,
+    UnAuthorizedError,
+    ConflictError,
+    ServerError,
 };

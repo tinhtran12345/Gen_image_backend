@@ -7,6 +7,7 @@ const router: Router = express.Router();
 
 router.get("/all", imageController.fetchImage);
 
-router.post("/generate", imageController.fetchImage);
+router.post("/generate", imageController.generateImage);
+// router.post("/create", );
 
 export default router;

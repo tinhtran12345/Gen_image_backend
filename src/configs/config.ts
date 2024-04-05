@@ -3,7 +3,6 @@ import EnvConfig from "../types/envConfig";
 import * as dotenv from "dotenv";
 dotenv.config();
 import { validateSchema } from "../utils/validate";
-import { OpenAI } from "openai";
 import { v2 as cloudinary } from "cloudinary";
 
 const envSchema = Joi.object({
@@ -20,7 +19,11 @@ const envSchema = Joi.object({
     cloudinarySecret: Joi.string().messages({
         "any.required": "Provide cloudinary api secret",
     }),
-    openaiKey: Joi.string().messages({ "any.required": "Provide OpenAI key." }),
+    // openaiKey: Joi.string().messages({ "any.required": "Provide OpenAI key." }),
+
+    stableDiffusionKey: Joi.string().required().messages({
+        "any.required": "Provide Stable Diffusion Key.",
+    }),
 });
 
 const envConfigValues = validateSchema(envSchema);
@@ -36,16 +39,20 @@ export const devConfig: EnvConfig = {
         apiKey: envConfigValues.cloudinaryKey,
         apiSecret: envConfigValues.cloudinarySecret,
     },
+    stableDiffusionKey: envConfigValues.stableDiffusionKey,
 };
 
 // Open AI setup
-export const openAI = new OpenAI({
-    apiKey: devConfig.openApiKey,
-});
+
+// import OpenAI from "openai";
+
+// export const openai = new OpenAI({
+//     organization: "org-u98EMnXftHmmxSL01tRZHbgk",
+//     apiKey: devConfig.openApiKey,
+// });
 
 // Cloudinary setup
-
-export const cloud = cloudinary.config({
+cloudinary.config({
     cloud_name: devConfig.cloudinary.name,
     api_key: devConfig.cloudinary.apiKey,
     api_secret: devConfig.cloudinary.apiSecret,

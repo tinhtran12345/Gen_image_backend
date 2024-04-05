@@ -5,7 +5,8 @@ export const validateSchema = (schema: any) => {
         cloudinaryName: process.env.CLOUD_NAME,
         cloudinaryKey: process.env.API_KEY,
         cloudinarySecret: process.env.API_SECRET,
-        openaiKey: process.env.OPENAI_KEY,
+        // openaiKey: process.env.OPENAI_KEY,
+        stableDiffusionKey: process.env.STABLE_DIFFUSION_KEY,
     });
 
     if (error) {

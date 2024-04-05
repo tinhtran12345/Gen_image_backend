@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
@@ -12,7 +12,12 @@ const port: number = devConfig.port || 8000;
 
 // Init middlewares
 app.use(cors());
-app.use(express());
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
 
 // connect Db
 connectDB();
