@@ -5,6 +5,7 @@ import cors from "cors";
 import { devConfig } from "./configs/config";
 import { connectDB } from "./configs/connectDB";
 import imageRouter from "./routes/imageRoute";
+import handleError from "./utils/handleError";
 
 const app: Application = express();
 
@@ -26,6 +27,11 @@ connectDB();
 
 app.use("/api/v1", imageRouter);
 
+app.use((req, res, next) => {
+    const error = new handleError.ErrorResponse("Not found!", 404);
+    next(error);
+});
+
 // handle error
 
 app.use((error: any, req: Request, res: Response, next: any) => {
@@ -42,5 +48,5 @@ app.use((error: any, req: Request, res: Response, next: any) => {
 // });
 
 app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
+    console.log(`Server is listening on port ${port}.`);
 });

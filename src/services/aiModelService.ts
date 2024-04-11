@@ -23,10 +23,11 @@ class StableDiffusionModel extends BaseModelService {
             method: "POST",
             body: JSON.stringify(data),
         });
+
         // Write and save image
         const arrayBuffer = await response.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
 
+        const buffer = Buffer.from(arrayBuffer);
         return buffer;
     };
 }

@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import fsPromise from "node:fs/promises";
 export const generateString = (length: number): string => {
     let result = "";
     const characters =
@@ -14,14 +15,25 @@ export const generateString = (length: number): string => {
     return result;
 };
 
-export const convertBufferToImage = (outputFilePath: string, buffer: any) =>
+export const convertBufferToImageV1 = (outputFilePath: string, buffer: any) =>
     new Promise((resolve, reject) => {
         try {
             fs.createWriteStream(outputFilePath).write(buffer);
             setTimeout(() => {
+                // if (writeFile) {
+                //     reject(false);
+                // }
                 resolve(true);
-            }, 3000);
+            }, 5000);
         } catch (error) {
             reject(false);
         }
     });
+
+export const deleteFileLocal = async (filePath: string): Promise<void> => {
+    try {
+        await fsPromise.unlink(filePath);
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+    app:
+        build: ./
+        container_name: generate_image
+        restart: unless-stopped
+        env_file: ./.env
+        environment:
+            - DATABASE_URL=$DATABASE_URL
+            - CLOUD_NAME=$CLOUD_NAME
+            - API_KEY=$API_KEY
+            - API_SECRET=$API_SECRET
+            - STABLE_DIFFUSION_KEY=$STABLE_DIFFUSION_KEY
+        ports:
+            - $PORT:$PORT
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge

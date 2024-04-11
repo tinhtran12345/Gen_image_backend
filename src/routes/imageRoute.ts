@@ -2,12 +2,12 @@
 
 import express, { Router } from "express";
 import imageController from "../controllers/imageController";
+import { asyncHandler } from "../utils/asyncHandler";
 
 const router: Router = express.Router();
 
-router.get("/all", imageController.fetchImage);
+router.get("/all", asyncHandler(imageController.fetchImage));
 
-router.post("/generate", imageController.generateImage);
-// router.post("/create", );
+router.post("/generate", asyncHandler(imageController.generateImage));
 
 export default router;
