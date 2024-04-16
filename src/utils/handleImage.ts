@@ -7,8 +7,6 @@ export const convertBufferToImageAndSave = async (
     buffer: any
 ): Promise<boolean> => {
     const saveImage = await sharp(buffer).toFile(outputFilePath);
-    if (saveImage) {
-        return true;
-    }
-    return false;
+
+    return saveImage ? true : false;
 };

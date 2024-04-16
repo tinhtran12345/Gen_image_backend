@@ -9,3 +9,16 @@
 -   DB:MongoDB, Redis
 
 #### 2. Usage
+
+-   Clone project
+
+```
+https://github.com/tinhtran12345/Gen_image_backend.git
+```
+
+-   Run with docker
+
+```
+docker compose up -d
+
+```

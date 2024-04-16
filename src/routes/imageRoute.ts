@@ -10,4 +10,6 @@ router.get("/all", asyncHandler(imageController.fetchImage));
 
 router.post("/generate", asyncHandler(imageController.generateImage));
 
+router.post("/search", asyncHandler(imageController.searchImage));
+
 export default router;

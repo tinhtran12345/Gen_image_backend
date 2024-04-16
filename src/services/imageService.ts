@@ -24,16 +24,18 @@ class ImageService {
 
     generateImage = async (prompt: string): Promise<any> => {
         const model = new aiModelService.StableDiffusionModel(
-            AIModel[0].apiUrl,
-            AIModel[0].modelId
+            AIModel[1].apiUrl,
+            AIModel[1].modelId
         );
         const outputFileName = generateString(8);
         const outputFilePath = `public/images/${outputFileName}.jpeg`;
         const buffer = await model.Post(prompt);
+
         const saveImage = await convertBufferToImageAndSave(
             outputFilePath,
             buffer
         );
+
         if (saveImage) {
             // upload image on cloud
 
@@ -56,6 +58,10 @@ class ImageService {
             return newImage;
         }
     };
+
+    resizeAndConvertTypeImage = async (imagePath: string) => {};
+
+    removeBackgroundImage = async (imagePath: string) => {};
 }
 
 export default new ImageService();

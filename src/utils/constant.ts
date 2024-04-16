@@ -33,4 +33,9 @@ export const AIModel = [
         apiUrl: "https://api-inference.huggingface.co/models/runwayml",
         modelId: "stable-diffusion-v1-5",
     },
+    {
+        id: 3,
+        apiUrl: "https://api-inference.huggingface.co/models/prompthero",
+        modelId: "openjourney",
+    },
 ];

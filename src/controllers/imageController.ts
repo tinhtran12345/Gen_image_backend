@@ -3,16 +3,25 @@
 import handleError from "../utils/handleError";
 import { Request, Response } from "express";
 import imageService from "../services/imageService";
+import sharp from "sharp";
 
 class ImageController {
-    fetchImage = (req: Request, res: Response) => {
-        if (1 === 1) {
-            throw new handleError.ErrorResponse("Error", 400);
+    fetchImage = async (req: Request, res: Response) => {
+        try {
+            const page = req.query["page"] || 1;
+            const limit = req.query["limit"] || 8;
+            const skip = Number(limit) * Number(page) - 1;
+            const images = await imageService.findAllImages(+limit, skip);
+
+            return res.status(200).json({
+                code: 201,
+                mes: "Successfully!",
+                metaData: images,
+            });
+        } catch (error) {
+            console.log(error);
+            throw new handleError.ServerError();
         }
-        return res.status(200).json({
-            code: 200,
-            mes: "Hello world",
-        });
     };
 
     generateImage = async (req: Request, res: Response, next: any) => {
@@ -38,6 +47,8 @@ class ImageController {
             next(error);
         }
     };
+
+    searchImage = async (req: Request, res: Response) => {};
 }
 
 export default new ImageController();
