@@ -21,7 +21,8 @@ app.use(
 );
 
 // connect Db
-connectDB();
+connectDB.connect();
+// connectDB();
 
 // init routes
 
@@ -42,6 +43,8 @@ app.use((error: any, req: Request, res: Response, next: any) => {
         message: error.message || "Internal Server Error",
     });
 });
+
+//
 
 // app.use("/health", (req: Request, res: Response) => {
 //     res.send("Server is running...");

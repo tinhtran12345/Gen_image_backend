@@ -1,8 +1,8 @@
 "use strict";
 
+import imageController from "@/controllers/imageController";
+import { asyncHandler } from "@/utils/asyncHandler";
 import express, { Router } from "express";
-import imageController from "../controllers/imageController";
-import { asyncHandler } from "../utils/asyncHandler";
 
 const router: Router = express.Router();
 

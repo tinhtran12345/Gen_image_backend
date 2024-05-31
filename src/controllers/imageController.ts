@@ -1,8 +1,10 @@
 ("use strict");
 
-import handleError from "../utils/handleError";
+import imageService from "@/services/imageService";
+import handleError from "@/utils/handleError";
+
 import { Request, Response } from "express";
-import imageService from "../services/imageService";
+
 import sharp from "sharp";
 
 class ImageController {

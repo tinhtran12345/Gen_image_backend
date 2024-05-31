@@ -1,6 +1,15 @@
+import { apiKeyModel } from "@/models/apiKeyModel";
+
 class ApiKeyService {
-    validateApiKey = async (apiKey: String) => {
-        return "Hello world";
+    validateApiKey = async (apiKey: string) => {
+        const apiKeyExists = await apiKeyModel.findOne({
+            key: apiKey,
+        });
+        return !!apiKeyExists;
+    };
+
+    createApiKey = async () => {
+        return;
     };
 }
 
