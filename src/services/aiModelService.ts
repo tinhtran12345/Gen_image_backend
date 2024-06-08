@@ -1,4 +1,4 @@
-import { devConfig } from "@/configs/config";
+import { devConfig } from "../configs/config";
 
 class BaseModelService {
     protected apiUrl: string;

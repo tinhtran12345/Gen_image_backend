@@ -1,4 +1,4 @@
-import { apiKeyModel } from "@/models/apiKeyModel";
+import { apiKeyModel } from "../models/apiKeyModel";
 
 class ApiKeyService {
     validateApiKey = async (apiKey: string) => {

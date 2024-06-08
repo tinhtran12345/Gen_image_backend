@@ -10,7 +10,7 @@ class ConnectDB {
         this.optional = optional;
     }
 
-    connect = () => {
+    connect = async (): Promise<void> => {
         mongoose
             .connect(this.dataBaseUrl, this.optional)
             .then(() => {
@@ -22,7 +22,7 @@ class ConnectDB {
             });
     };
 
-    disConnect = () => {
+    disConnect = async (): Promise<void> => {
         mongoose
             .disconnect()
             .then(() => {
@@ -46,4 +46,9 @@ class ConnectDB {
 //         });
 // };
 
-export const connectDB = new ConnectDB(devConfig.dataBaseUrl);
+const optional = {
+    // useNewUrlParser: true,
+    maxPoolSize: 10,
+};
+
+export const connectDB = new ConnectDB(devConfig.dataBaseUrl, optional);

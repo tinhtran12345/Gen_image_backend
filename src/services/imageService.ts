@@ -1,11 +1,11 @@
-import { imageModel } from "@/models/imageModel";
-import { ImageInput } from "@/types/imageType";
 import { v2 as cloudinary } from "cloudinary";
 
-import { AIModel } from "@/utils/constant";
-import { deleteFileLocal, generateString } from "@/utils/commonFunctions";
-import { convertBufferToImageAndSave } from "@/utils/handleImage";
 import aiModelService from "./aiModelService";
+import { imageModel } from "../models/imageModel";
+import { ImageInput } from "../types/imageType";
+import { AIModel } from "../utils/constant";
+import { deleteFileLocal, generateString } from "../utils/commonFunctions";
+import { convertBufferToImageAndSave } from "../utils/handleImage";
 
 class ImageService {
     findAllImages = async (limit: number, skip: number): Promise<unknown[]> => {

@@ -1,11 +1,8 @@
 ("use strict");
 
-import imageService from "@/services/imageService";
-import handleError from "@/utils/handleError";
-
 import { Request, Response } from "express";
-
-import sharp from "sharp";
+import imageService from "../services/imageService";
+import handleError from "../utils/handleError";
 
 class ImageController {
     fetchImage = async (req: Request, res: Response) => {

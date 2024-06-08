@@ -2,14 +2,11 @@ import express, { Application, Request, Response } from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
-import { devConfig } from "./configs/config";
 import { connectDB } from "./configs/connectDB";
 import imageRouter from "./routes/imageRoute";
 import handleError from "./utils/handleError";
 
 const app: Application = express();
-
-const port: number = devConfig.port || 8000;
 
 // Init middlewares
 app.use(cors());
@@ -26,7 +23,15 @@ connectDB.connect();
 
 // init routes
 
+app.get("/health", (req: Request, res: Response) => {
+    res.json({
+        message: "Server is running...",
+    });
+});
+
 app.use("/api/v1", imageRouter);
+
+// Not found
 
 app.use((req, res, next) => {
     const error = new handleError.ErrorResponse("Not found!", 404);
@@ -44,12 +49,4 @@ app.use((error: any, req: Request, res: Response, next: any) => {
     });
 });
 
-//
-
-// app.use("/health", (req: Request, res: Response) => {
-//     res.send("Server is running...");
-// });
-
-app.listen(port, () => {
-    console.log(`Server is listening on port ${port}.`);
-});
+export default app;
