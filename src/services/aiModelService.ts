@@ -1,4 +1,4 @@
-import { devConfig } from "../configs/config";
+import { envConfig } from "../configs/config";
 
 class BaseModelService {
     protected apiUrl: string;
@@ -17,7 +17,7 @@ class StableDiffusionModel extends BaseModelService {
     public Post = async (data: string): Promise<any> => {
         const response = await fetch(`${this.apiUrl}/${this.modelId}`, {
             headers: {
-                Authorization: `Bearer ${devConfig.stableDiffusionKey}`,
+                Authorization: `Bearer ${envConfig.stableDiffusionKey}`,
             },
 
             method: "POST",

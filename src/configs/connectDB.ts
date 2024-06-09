@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { devConfig } from "./config";
+import { envConfig } from "./config";
 
 class ConnectDB {
     private dataBaseUrl: string;
@@ -34,21 +34,9 @@ class ConnectDB {
     };
 }
 
-// export const connectDB = (): any => {
-//     mongoose
-//         .connect(devConfig.dataBaseUrl, {})
-//         .then(() => {
-//             console.log("Database connect successfully!");
-//         })
-//         .catch((error) => {
-//             console.log("Database connect error", error);
-//             process.exit();
-//         });
-// };
-
 const optional = {
     // useNewUrlParser: true,
     maxPoolSize: 10,
 };
 
-export const connectDB = new ConnectDB(devConfig.dataBaseUrl, optional);
+export const connectDB = new ConnectDB(envConfig.dataBaseUrl, optional);

@@ -1,13 +1,15 @@
 type EnvConfig = {
-    port: number;
-    dataBaseUrl: string;
-    openApiKey: string;
-    cloudinary: {
+    readonly node_env: string;
+    readonly port: number;
+    readonly dataBaseUrl: string;
+    readonly openApiKey: string;
+    readonly cloudinary: {
         name: string;
         apiKey: string;
         apiSecret: string;
     };
-    stableDiffusionKey: string;
+    readonly stableDiffusionKey: string;
+    readonly corsOrigin: string;
 };
 
 export default EnvConfig;

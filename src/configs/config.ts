@@ -1,36 +1,70 @@
-import Joi from "joi";
 import EnvConfig from "../types/envConfig";
 import * as dotenv from "dotenv";
 dotenv.config();
-import { validateSchema } from "../utils/validate";
+import { validateSchema } from "../utils/validation";
 import { v2 as cloudinary } from "cloudinary";
 
-const envSchema = Joi.object({
-    port: Joi.number().required(),
-    dataBaseUrl: Joi.string().messages({
-        "any.required": "Provide Mongodb Url",
-    }),
-    cloudinaryName: Joi.string().messages({
-        "any.required": "Provide cloudinaty cloud name",
-    }),
-    cloudinaryKey: Joi.string().messages({
-        "any.required": "Provide cloudinary api key",
-    }),
-    cloudinarySecret: Joi.string().messages({
-        "any.required": "Provide cloudinary api secret",
-    }),
-    // openaiKey: Joi.string().messages({ "any.required": "Provide OpenAI key." }),
+const envValues = (schema: any) => {
+    let node_env = process.env.NODE_ENV || "dev";
+    let checkSchema;
 
-    stableDiffusionKey: Joi.string().required().messages({
-        "any.required": "Provide Stable Diffusion Key.",
-    }),
-});
+    switch (node_env) {
+        case "dev":
+            checkSchema = {
+                node_env: process.env.NODE_ENV,
+                port: process.env.PORT,
+                dataBaseUrl: process.env.DATABASE_URL,
+                cloudinaryName: process.env.CLOUD_NAME,
+                cloudinaryKey: process.env.API_KEY,
+                cloudinarySecret: process.env.API_SECRET,
+                // openaiKey: process.env.OPENAI_KEY,
+                stableDiffusionKey: process.env.STABLE_DIFFUSION_KEY,
+                corsOrigin: process.env.CORS_ORIGIN,
+            };
+            break;
+        case "pro":
+            checkSchema = {
+                node_env: process.env.NODE_ENV,
+                port: process.env.PRO_PORT,
+                dataBaseUrl: process.env.PRO_DATABASE_URL,
+                cloudinaryName: process.env.PRO_CLOUD_NAME,
+                cloudinaryKey: process.env.PRO_API_KEY,
+                cloudinarySecret: process.env.PRO_API_SECRET,
+                // openaiKey: process.env.OPENAI_KEY,
+                stableDiffusionKey: process.env.PRO_STABLE_DIFFUSION_KEY,
+                corsOrigin: process.env.PRO_CORS_ORIGIN,
+            };
+            break;
+        case "test":
+            checkSchema = {
+                node_env: process.env.NODE_ENV,
+                port: process.env.TEST_PORT,
+                dataBaseUrl: process.env.TEST_DATABASE_URL,
+                cloudinaryName: process.env.TEST_CLOUD_NAME,
+                cloudinaryKey: process.env.TEST_API_KEY,
+                cloudinarySecret: process.env.TEST_API_SECRET,
+                // openaiKey: process.env.OPENAI_KEY,
+                stableDiffusionKey: process.env.TEST_STABLE_DIFFUSION_KEY,
+                corsOrigin: process.env.TEST_CORS_ORIGIN,
+            };
+            break;
+    }
 
-const envConfigValues = validateSchema(envSchema);
+    const { value, error } = schema.validate(checkSchema);
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+    return value;
+};
+
+const envConfigValues = envValues(validateSchema);
 
 // config env
 
-export const devConfig: EnvConfig = {
+export const envConfig: EnvConfig = {
+    node_env: envConfigValues.node_env,
     port: envConfigValues.port,
     dataBaseUrl: envConfigValues.dataBaseUrl,
     openApiKey: envConfigValues.openaiKey,
@@ -40,20 +74,12 @@ export const devConfig: EnvConfig = {
         apiSecret: envConfigValues.cloudinarySecret,
     },
     stableDiffusionKey: envConfigValues.stableDiffusionKey,
+    corsOrigin: envConfigValues.corsOrigin,
 };
-
-// Open AI setup
-
-// import OpenAI from "openai";
-
-// export const openai = new OpenAI({
-//     organization: "org-u98EMnXftHmmxSL01tRZHbgk",
-//     apiKey: devConfig.openApiKey,
-// });
 
 // Cloudinary setup
 cloudinary.config({
-    cloud_name: devConfig.cloudinary.name,
-    api_key: devConfig.cloudinary.apiKey,
-    api_secret: devConfig.cloudinary.apiSecret,
+    cloud_name: envConfig.cloudinary.name,
+    api_key: envConfig.cloudinary.apiKey,
+    api_secret: envConfig.cloudinary.apiSecret,
 });
