@@ -10,8 +10,9 @@ class ApiKeyService {
         return !!apiKeyExists;
     };
 
-    createApiKey = async (): Promise<any> => {
+    createApiKey = async (name: string = "GenIO"): Promise<any> => {
         const apiKey = await apiKeyModel.create({
+            organization: name,
             key: genAPIKey(),
         });
         return apiKey;
