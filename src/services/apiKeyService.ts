@@ -1,15 +1,20 @@
 import { apiKeyModel } from "../models/apiKeyModel";
+import { generateKey } from "node:crypto";
+import { genAPIKey } from "../utils/commonFunctions";
 
 class ApiKeyService {
-    validateApiKey = async (apiKey: string) => {
+    findApiKey = async (apiKey: string) => {
         const apiKeyExists = await apiKeyModel.findOne({
             key: apiKey,
         });
         return !!apiKeyExists;
     };
 
-    createApiKey = async () => {
-        return;
+    createApiKey = async (): Promise<any> => {
+        const apiKey = await apiKeyModel.create({
+            key: genAPIKey(),
+        });
+        return apiKey;
     };
 }
 
