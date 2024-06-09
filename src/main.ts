@@ -5,7 +5,11 @@ import cors from "cors";
 import { connectDB } from "./configs/connectDB";
 import imageRouter from "./routes/imageRoute";
 import handleError from "./utils/handleError";
+
+import { validateApiKey } from "./middlewares/validateApiKey";
+
 import { envConfig } from "./configs/config";
+
 
 const app: Application = express();
 
@@ -35,7 +39,7 @@ app.get("/health", (req: Request, res: Response) => {
     });
 });
 
-app.use("/api/v1", imageRouter);
+app.use("/api/v1", validateApiKey, imageRouter);
 
 // Not found
 
