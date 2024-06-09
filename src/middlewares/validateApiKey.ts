@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import apiKeyService from "../services/apiKeyService";
 import handleError from "../utils/handleError";
+import aiModelService from "../services/aiModelService";
 
 export const validateApiKey = async (
     req: Request,
