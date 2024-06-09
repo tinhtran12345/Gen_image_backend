@@ -5,11 +5,17 @@ import cors from "cors";
 import { connectDB } from "./configs/connectDB";
 import imageRouter from "./routes/imageRoute";
 import handleError from "./utils/handleError";
+import { envConfig } from "./configs/config";
 
 const app: Application = express();
 
 // Init middlewares
-app.use(cors());
+app.use(
+    cors({
+        origin: [envConfig.corsOrigin],
+        credentials: true,
+    })
+);
 app.use(express.json());
 app.use(
     express.urlencoded({
