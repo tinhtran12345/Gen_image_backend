@@ -2,15 +2,12 @@ import express, { Application, Request, Response } from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
-import { connectDB } from "./configs/connectDB";
+
 import imageRouter from "./routes/imageRoute";
 import handleError from "./utils/handleError";
-
 import { validateApiKey } from "./middlewares/validateApiKey";
-
 import { envConfig } from "./configs/config";
-
-
+import { connectDB } from "./configs/connectDB";
 const app: Application = express();
 
 // Init middlewares
@@ -50,7 +47,7 @@ app.use((req, res, next) => {
 
 // handle error
 
-app.use((error: any, req: Request, res: Response, next: any) => {
+app.use((error: any, req: Request, res: Response) => {
     const statusCode: number = error.statusCode || 500;
     return res.status(statusCode).json({
         status: "error",

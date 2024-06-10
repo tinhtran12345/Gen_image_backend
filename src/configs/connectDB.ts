@@ -4,9 +4,9 @@ import logger from "../middlewares/logger";
 
 class ConnectDB {
     private dataBaseUrl: string;
-    private optional: any;
+    private optional: object = {};
 
-    constructor(dataBaseUrl: string, optional?: {}) {
+    constructor(dataBaseUrl: string, optional: object = {}) {
         this.dataBaseUrl = dataBaseUrl;
         this.optional = optional;
     }

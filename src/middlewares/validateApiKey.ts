@@ -10,7 +10,7 @@ export const validateApiKey = async (
     next: NextFunction
 ) => {
     // validation apikey
-    let apiKey = req.header("x-api-key");
+    const apiKey = req.header("x-api-key");
     try {
         if (!apiKey) {
             throw new handleError.NotFoundError("ApiKey not found!", 500);

@@ -1,6 +1,6 @@
 "use strict";
 
-import express, { Request, Response, Router } from "express";
+import express, { Router } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import imageController from "../controllers/imageController";
 

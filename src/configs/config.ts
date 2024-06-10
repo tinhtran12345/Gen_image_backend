@@ -5,7 +5,7 @@ import { validateSchema } from "../utils/validation";
 import { v2 as cloudinary } from "cloudinary";
 
 const envValues = (schema: any) => {
-    let node_env = process.env.NODE_ENV || "dev";
+    const node_env = process.env.NODE_ENV || "dev";
     let checkSchema;
 
     switch (node_env) {
