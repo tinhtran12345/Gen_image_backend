@@ -2,7 +2,7 @@
 
 import { Request, Response } from "express";
 import imageService from "../services/imageService";
-import handleError from "../utils/handleError";
+import handleError from "../exceptions/handleError";
 import logger from "../middlewares/logger";
 
 class ImageController {

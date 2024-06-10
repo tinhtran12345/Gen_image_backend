@@ -1,5 +1,5 @@
 "use strict";
-import { ReasonStatusCode, StatusCode } from "./constant";
+import { ReasonStatusCode, StatusCode } from "../utils/constant";
 
 class ErrorResponse extends Error {
     statusCode: number;
@@ -53,6 +53,18 @@ class ServerError extends ErrorResponse {
     }
 }
 
+class PdfSizeError extends Error {
+    constructor(message = ReasonStatusCode.PDFSIZERROR) {
+        super(message);
+    }
+}
+
+class PdfNotParsedError extends Error {
+    constructor(message = ReasonStatusCode.PDFNOTPARSEDERROR) {
+        super(message);
+    }
+}
+
 export default {
     ErrorResponse,
     NotFoundError,
@@ -60,4 +72,6 @@ export default {
     UnAuthorizedError,
     ConflictError,
     ServerError,
+    PdfSizeError,
+    PdfNotParsedError,
 };

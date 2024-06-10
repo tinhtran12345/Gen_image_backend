@@ -4,7 +4,7 @@ dotenv.config();
 import cors from "cors";
 
 import imageRouter from "./routes/imageRoute";
-import handleError from "./utils/handleError";
+import handleError from "./exceptions/handleError";
 import { validateApiKey } from "./middlewares/validateApiKey";
 import { envConfig } from "./configs/config";
 import { connectDB } from "./configs/connectDB";
