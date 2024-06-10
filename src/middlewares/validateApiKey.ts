@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import apiKeyService from "../services/apiKeyService";
 import handleError from "../utils/handleError";
+import logger from "./logger";
 
 export const validateApiKey = async (
     req: Request,
@@ -19,6 +20,7 @@ export const validateApiKey = async (
         }
         next();
     } catch (error) {
+        logger.error(error);
         next(error);
     }
 };

@@ -9,13 +9,13 @@
         "strict": true,
         "skipLibCheck": true,
         "noImplicitAny": true,
+        "moduleResolution": "node"
         //  config path
         // "baseUrl": ".",
+
         // "paths": {
         //     "@/*": ["src/*"]
-        // },
-
-        "moduleResolution": "node"
+        // }
     },
     "include": ["./*.js", "src/**/*.ts", "test/**/*.ts"]
 }
