@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import fsPromise from "node:fs/promises";
+import logger from "../middlewares/logger";
 export const generateString = (length: number): string => {
     let result = "";
     const characters =
@@ -34,7 +35,7 @@ export const deleteFileLocal = async (filePath: string): Promise<void> => {
     try {
         await fsPromise.unlink(filePath);
     } catch (error) {
-        console.log(error);
+        logger.error(error);
     }
 };
 

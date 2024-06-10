@@ -3,6 +3,7 @@
 import { Request, Response } from "express";
 import imageService from "../services/imageService";
 import handleError from "../utils/handleError";
+import logger from "../middlewares/logger";
 
 class ImageController {
     fetchImage = async (req: Request, res: Response) => {
@@ -18,7 +19,7 @@ class ImageController {
                 metaData: images,
             });
         } catch (error) {
-            console.log(error);
+            logger.error(error);
             throw new handleError.ServerError();
         }
     };
@@ -42,7 +43,7 @@ class ImageController {
 
             throw new handleError.NotFoundError("Image not found!");
         } catch (error) {
-            // console.log(error);
+            logger.error(error);
             next(error);
         }
     };

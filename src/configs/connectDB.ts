@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { envConfig } from "./config";
+import logger from "../middlewares/logger";
 
 class ConnectDB {
     private dataBaseUrl: string;
@@ -14,10 +15,10 @@ class ConnectDB {
         mongoose
             .connect(this.dataBaseUrl, this.optional)
             .then(() => {
-                console.log("Database connect successfully!");
+                logger.info("Database connect successfully!");
             })
             .catch((error) => {
-                console.log("Database connect error", error);
+                logger.error(`Database connect error: ${error}`);
                 process.exit();
             });
     };
@@ -26,10 +27,10 @@ class ConnectDB {
         mongoose
             .disconnect()
             .then(() => {
-                console.log("Disconnected from the database");
+                logger.info("Disconnected from the database");
             })
             .catch((err) => {
-                console.error("Error disconnecting from the database", err);
+                logger.error(`Error disconnecting from the database: ${err}`);
             });
     };
 }
