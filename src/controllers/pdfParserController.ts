@@ -7,6 +7,7 @@ import multer from "multer";
 class PdfParserController {
     parsePdfFromUpload = async (req: Request, res: Response) => {
         const file = req.file;
+        console.log(file);
         if (!file) {
             logger.warn("Please upload file");
             throw new handleError.NotFoundError("Please upload file", 400);

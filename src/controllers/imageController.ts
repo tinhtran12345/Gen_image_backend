@@ -28,6 +28,7 @@ class ImageController {
         const { prompt } = req.body;
 
         if (!prompt || prompt === "") {
+            logger.warn("Prompt is required!");
             throw new handleError.BadRequestError("Prompt is required!");
         }
 
