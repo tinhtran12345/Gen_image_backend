@@ -1,6 +1,6 @@
 ("use strict");
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import imageService from "../services/imageService";
 import handleError from "../exceptions/handleError";
 import logger from "../middlewares/logger";
@@ -24,7 +24,7 @@ class ImageController {
         }
     };
 
-    generateImage = async (req: Request, res: Response, next: any) => {
+    generateImage = async (req: Request, res: Response, next: NextFunction) => {
         const { prompt } = req.body;
 
         if (!prompt || prompt === "") {

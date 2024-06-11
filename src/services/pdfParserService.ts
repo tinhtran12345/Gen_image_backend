@@ -39,6 +39,8 @@ class PdfParserService {
         return processedText;
     };
 
+    // upload image => load pdf from url => buffer => parserPdf => text
+
     loadPdfFromUrl = async (url: string) => {
         const response = await axios({
             url,

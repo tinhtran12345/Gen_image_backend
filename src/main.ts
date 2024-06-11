@@ -4,6 +4,7 @@ dotenv.config();
 import cors from "cors";
 
 import imageRouter from "./routes/imageRoute";
+import pdfParserRouter from "./routes/pdfParserRoute";
 import handleError from "./exceptions/handleError";
 import { validateApiKey } from "./middlewares/validateApiKey";
 import { envConfig } from "./configs/config";
@@ -24,6 +25,8 @@ app.use(
     })
 );
 
+// app.use(express.static(__dirname + "/public"));
+
 // connect Db
 connectDB.connect();
 // connectDB();
@@ -37,6 +40,7 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1", validateApiKey, imageRouter);
+app.use("/api/v1/parsers-pdf", validateApiKey, pdfParserRouter);
 
 // Not found
 

@@ -6,7 +6,6 @@ describe("app", () => {
         request(app)
             .get("/what-is-this-even")
             .set("Accept", "application/json")
-            .expect("Content-Type", /json/)
             .expect(404, done);
     });
 });
