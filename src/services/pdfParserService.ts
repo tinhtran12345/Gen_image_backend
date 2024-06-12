@@ -47,11 +47,32 @@ class PdfParserService {
             method: "GET",
             responseType: "arraybuffer",
         });
+
         if (response.headers["content-length"] > 5 * 1024 * 1024) {
             logger.warn("PDF size over 5MB");
             throw new handleError.PdfSizeError();
         }
         return Buffer.from(response.data, "binary");
+    };
+
+    parserPdfFromLocalPath = async (filepath: string) => {
+        const poppler = new Poppler();
+        const options = {
+            maintainLayout: true,
+            quiet: true,
+        };
+        const output = (await poppler.pdfToText(
+            filepath,
+            undefined,
+            options
+        )) as any;
+
+        if (output.length === 0) {
+            logger.warn("PDF not parsed");
+            throw new handleError.PdfNotParsedError();
+        }
+        logger.info("PDF parsed successfully");
+        return this.postProcessText(output);
     };
 }
 

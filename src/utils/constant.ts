@@ -23,6 +23,11 @@ export const ReasonStatusCode = {
         "The PDF file could not be parsed. It may not contain plain text or information in text format.",
 };
 
+export const staticPath = {
+    images: "public/images/",
+    pdfs: "public/pdfs/",
+};
+
 export const Header = {};
 
 export const AIModel = [

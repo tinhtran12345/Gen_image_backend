@@ -34,6 +34,7 @@ export const convertBufferToImageV1 = (outputFilePath: string, buffer: any) =>
 export const deleteFileLocal = async (filePath: string): Promise<void> => {
     try {
         await fsPromise.unlink(filePath);
+        logger.info("PDF file deletes successfully!!");
     } catch (error) {
         logger.error(error);
     }
