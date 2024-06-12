@@ -1,10 +1,11 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 import cors from "cors";
 
 import imageRouter from "./routes/imageRoute";
-import handleError from "./utils/handleError";
+import pdfParserRouter from "./routes/pdfParserRoute";
+import handleError from "./exceptions/handleError";
 import { validateApiKey } from "./middlewares/validateApiKey";
 import { envConfig } from "./configs/config";
 import { connectDB } from "./configs/connectDB";
@@ -24,6 +25,8 @@ app.use(
     })
 );
 
+app.use(express.static(__dirname + "/public"));
+
 // connect Db
 connectDB.connect();
 // connectDB();
@@ -37,18 +40,19 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 app.use("/api/v1", validateApiKey, imageRouter);
+app.use("/api/v1/parsers-pdf", validateApiKey, pdfParserRouter);
 
 // Not found
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     const error = new handleError.ErrorResponse("Not found!", 404);
     next(error);
 });
 
 // handle error
-
-app.use((error: any, req: Request, res: Response) => {
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     const statusCode: number = error.statusCode || 500;
+
     return res.status(statusCode).json({
         status: "error",
         code: statusCode,

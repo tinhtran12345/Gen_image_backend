@@ -18,6 +18,14 @@ export const ReasonStatusCode = {
     UNAUTHORIZED: "Unauthorized",
     NOTFOUND: "Not found",
     SERVERERROR: "Something went wrong!",
+    PDFSIZERROR: "The PDF file is larger than 5MB",
+    PDFNOTPARSEDERROR:
+        "The PDF file could not be parsed. It may not contain plain text or information in text format.",
+};
+
+export const staticPath = {
+    images: "public/images/",
+    pdfs: "public/pdfs/",
 };
 
 export const Header = {};

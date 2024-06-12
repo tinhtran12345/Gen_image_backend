@@ -37,6 +37,7 @@ class ConnectDB {
 
 const optional = {
     // useNewUrlParser: true,
+    // useUnifiedTopology: true,
     maxPoolSize: 10,
 };
 
