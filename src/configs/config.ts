@@ -1,4 +1,4 @@
-import EnvConfig from "../types/envConfig";
+import { EnvConfig } from "../types/env";
 import * as dotenv from "dotenv";
 dotenv.config();
 import { validateSchema } from "../utils/validation";

@@ -1,4 +1,4 @@
-type EnvConfig = {
+export interface EnvConfig {
     readonly node_env: string;
     readonly port: number;
     readonly dataBaseUrl: string;
@@ -10,6 +10,4 @@ type EnvConfig = {
     };
     readonly stableDiffusionKey: string;
     readonly corsOrigin: string;
-};
-
-export default EnvConfig;
+}

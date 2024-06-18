@@ -10,6 +10,7 @@ export const StatusCode = {
     UNAUTHORIZED: 401,
     NOTFOUND: 404,
     SERVERERROR: 500,
+    SERVICEUNAVAILABLE: 503,
 };
 
 export const ReasonStatusCode = {
@@ -21,6 +22,7 @@ export const ReasonStatusCode = {
     PDFSIZERROR: "The PDF file is larger than 5MB",
     PDFNOTPARSEDERROR:
         "The PDF file could not be parsed. It may not contain plain text or information in text format.",
+    SERVICEUNAVAILABLE: "Service Unavailable",
 };
 
 export const staticPath = {

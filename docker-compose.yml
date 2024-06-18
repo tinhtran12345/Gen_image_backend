@@ -7,11 +7,16 @@ services:
         restart: unless-stopped
         env_file: ./.env
         environment:
+            - NODE_ENV = $NODE_ENV
             - DATABASE_URL=$DATABASE_URL
             - CLOUD_NAME=$CLOUD_NAME
             - API_KEY=$API_KEY
             - API_SECRET=$API_SECRET
             - STABLE_DIFFUSION_KEY=$STABLE_DIFFUSION_KEY
+            - LANGCHAIN_TRACING_V2 = $LANGCHAIN_TRACING_V2
+            - LANGCHAIN_API_KEY = $LANGCHAIN_API_KEY
+            - CORS_ORIGIN = $CORS_ORIGIN
+
         ports:
             - $PORT:$PORT
         networks:

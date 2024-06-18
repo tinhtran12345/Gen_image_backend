@@ -1,4 +1,4 @@
-"use strict";
+("use strict");
 import { ReasonStatusCode, StatusCode } from "../utils/constant";
 
 class ErrorResponse extends Error {
@@ -65,6 +65,25 @@ class PdfNotParsedError extends Error {
     }
 }
 
+class ServiceError extends ErrorResponse {
+    constructor(
+        message = ReasonStatusCode.SERVICEUNAVAILABLE,
+        statusCode = StatusCode.SERVICEUNAVAILABLE
+    ) {
+        super(message, statusCode);
+    }
+}
+
+class RefinePromptInputVaribalesError extends Error {
+    statusCode: number;
+    constructor(promptTemplate: string, missingInputVariables: string) {
+        super(
+            `${promptTemplate} is missing mandatory input variable: ${missingInputVariables}`
+        );
+        this.statusCode = StatusCode.SERVICEUNAVAILABLE;
+    }
+}
+
 export default {
     ErrorResponse,
     NotFoundError,
@@ -74,4 +93,6 @@ export default {
     ServerError,
     PdfSizeError,
     PdfNotParsedError,
+    ServiceError,
+    RefinePromptInputVaribalesError,
 };
