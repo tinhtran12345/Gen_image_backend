@@ -1,5 +1,4 @@
 import { envConfig } from "./configs/config";
-
 import * as dotenv from "dotenv";
 import logger from "./middlewares/logger";
 import app from "./main";

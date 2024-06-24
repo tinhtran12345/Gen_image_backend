@@ -17,7 +17,7 @@ export const validateSchema = Joi.object({
     }),
     // openaiKey: Joi.string().messages({ "any.required": "Provide OpenAI key." }),
 
-    stableDiffusionKey: Joi.string().required().messages({
+    huggingFaceKey: Joi.string().required().messages({
         "any.required": "Provide Stable Diffusion Key.",
     }),
     corsOrigin: Joi.string(),

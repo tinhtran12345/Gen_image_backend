@@ -2,11 +2,10 @@ import { v2 as cloudinary } from "cloudinary";
 
 import aiModelService from "./aiModelService";
 import { imageModel } from "../models/imageModel";
-
-import { AIModel } from "../utils/constant";
 import { deleteFileLocal, generateString } from "../utils/commonFunctions";
 import { convertBufferToImageAndSave } from "../utils/handleImage";
 import { ImageInput } from "../types";
+import { HuggingFaceModel } from "../utils/constant";
 
 class ImageService {
     findAllImages = async (limit: number, skip: number): Promise<unknown[]> => {
@@ -25,10 +24,8 @@ class ImageService {
     };
 
     generateImage = async (prompt: string): Promise<any> => {
-        const model = new aiModelService.StableDiffusionModel(
-            AIModel[1].apiUrl,
-            AIModel[1].modelId
-        );
+        const { apiUrl, modelId } = HuggingFaceModel.stableDiffusion1;
+        const model = new aiModelService.StableDiffusionModel(apiUrl, modelId);
         const outputFileName = generateString(8);
         const outputFilePath = `public/images/${outputFileName}.jpeg`;
         const buffer = await model.Post(prompt);

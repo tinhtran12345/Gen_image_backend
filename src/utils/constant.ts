@@ -32,20 +32,18 @@ export const staticPath = {
 
 export const Header = {};
 
-export const AIModel = [
-    {
-        id: 1,
+export const HuggingFaceModel = {
+    stableDiffusion1: {
         apiUrl: "https://api-inference.huggingface.co/models/stabilityai",
         modelId: "stable-diffusion-2-1",
     },
-    {
-        id: 2,
+    stableDiffusion2: {
         apiUrl: "https://api-inference.huggingface.co/models/runwayml",
         modelId: "stable-diffusion-v1-5",
     },
-    {
-        id: 3,
-        apiUrl: "https://api-inference.huggingface.co/models/prompthero",
-        modelId: "openjourney",
+
+    metaLLM: {
+        apiUrl: "https://api-inference.huggingface.co/models/meta-llama",
+        modelId: "Meta-Llama-3-8B-Instruct",
     },
-];
+};

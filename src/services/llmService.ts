@@ -1,106 +1,31 @@
 import { PromptTemplate } from "@langchain/core/prompts";
-import handleError from "../exceptions/handleError";
-import { ChainValues } from "@langchain/core/utils/types";
-import { Model } from "../types";
-import { RecursiveCharacterTextSplitter } from "langchain/dist/text_splitter";
-import { ChatOpenAI } from "@langchain/openai";
+import { ChainValues } from "langchain/dist/schema";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import logger from "../middlewares/logger";
+import handleError from "../exceptions/handleError";
+import { ChatAnthropic } from "@langchain/anthropic";
+import aiModelService from "./aiModelService";
+import { HuggingFaceModel } from "../utils/constant";
+import { Model } from "../types";
+import { log } from "console";
 
 class LlmService {
-    generateOutput = async (
-        model: Model,
-        promptTemplate: PromptTemplate,
-        chainValues: ChainValues,
-        debug: boolean
-    ) => {
-        const llm = this.retrieveAvailableModel(model);
-        try {
-            await promptTemplate.format(chainValues);
-        } catch (e) {
-            logger.error("Prompt template doesn't match input variables");
-            throw new handleError.ServiceError(
-                "Prompt template doesn't match input variables"
-            );
-        }
-    };
-
     splitDocument = async (
-        document: string,
-        params: { chunkSize: number; overlap: number }
+        text: string,
+        params: {
+            chunkSize: number;
+            chunkOverlap: number;
+        }
     ) => {
         const splitter = new RecursiveCharacterTextSplitter({
-            chunkSize: params?.chunkSize,
-            chunkOverlap: params?.overlap,
+            chunkSize: params.chunkSize,
+            chunkOverlap: params.chunkOverlap,
         });
-
-        const output = await splitter.createDocuments([document]);
-        logger.info(
-            `splitDocument created ${output.length} documents (chunks size: ${params.chunkSize}, overlap: ${params.overlap})`
-        );
+        const output = await splitter.createDocuments([text]);
         return output;
     };
 
-    generateRefineOutput = async (
-        model: Model,
-        initialPromptTemplate: PromptTemplate,
-        refinePromptTemplate: PromptTemplate,
-        chainValues: ChainValues & { input_documents: Document[] },
-        debug: boolean = false
-    ) => {
-        const llm = this.retrieveAvailableModel(model);
-        if (chainValues["context"] || chainValues["existing_answer"]) {
-            // this.logger.error(
-            //   "Reserved chain values 'context' & 'existing_answer' can't be used",
-            // );
-            throw new handleError.ServiceError("context or existing_answer");
-        }
-        this.throwErrorIfInputVariableMissing(
-            "initialPromptTemplate",
-            "context",
-            initialPromptTemplate.inputVariables
-        );
-
-        this.throwErrorIfInputVariableMissing(
-            "refinePromptTemplate",
-            "context",
-            refinePromptTemplate.inputVariables
-        );
-
-        this.throwErrorIfInputVariableMissing(
-            "refinePromptTemplate",
-            "existing_answer",
-            refinePromptTemplate.inputVariables
-        );
-        // const refineChain = loadQARefineChain(llm, {
-        //     questionPrompt: initialPromptTemplate,
-        //     refinePrompt: refinePromptTemplate,
-        // });
-        try {
-            //
-        } catch (error) {
-            throw new handleError.ServiceError(
-                "Prompt template could not be formatted with provided chain values."
-            );
-        }
-    };
-
-    private throwErrorIfInputVariableMissing = (
-        templateName: string,
-        variableName: string,
-        inputVariables: string[]
-    ) => {
-        if (!inputVariables.includes(variableName)) {
-            // logger.error(
-            //   `Input variable ${variableName} is missing from ${templateName}`,
-            // );
-            throw new handleError.RefinePromptInputVaribalesError(
-                templateName,
-                variableName
-            );
-        }
-    };
-
-    private retrieveAvailableModel = async (model: Model) => {
+    retrieveModelFromOpenAI = async (model: Model) => {
         switch (model.name) {
             case "gpt-3.5-turbo":
             case "gpt-3.5-turbo-16k":
@@ -111,22 +36,37 @@ class LlmService {
                         `API key for model ${model.name} is missing.`
                     );
                 }
-                const llm = new ChatOpenAI({
-                    cache: true,
-                    maxConcurrency: 10,
-                    maxRetries: 3,
-                    modelName: model.name,
-                    openAIApiKey: model.apiKey,
-                    temperature: 0,
+                const llm = new ChatAnthropic({
+                    temperature: 0.9,
+                    model: model.name,
+                    apiKey: model.apiKey,
+                    maxTokens: 1024,
                 });
                 return llm;
             }
             default: {
-                //this.logger.warn(`Model ${model.name} was not found`);
+                logger.warn(`Model ${model.name} was not found`);
                 throw new handleError.ServiceError(
                     `Not available ${model.name} model error`
                 );
             }
+        }
+    };
+
+    generateOutput = async (
+        promptTemplate: PromptTemplate,
+        chainValues: ChainValues
+    ) => {
+        const { apiUrl, modelId } = HuggingFaceModel.metaLLM;
+        // retrieve model
+        const llm = new aiModelService.MetaLLModel(apiUrl, modelId);
+        try {
+            const prompt = await promptTemplate.format(chainValues);
+            const output = await llm.Post(prompt);
+            return output;
+        } catch (error) {
+            logger.error(`Something went wrong!: ${error}`);
+            throw new handleError.ServiceError();
         }
     };
 }

@@ -27,6 +27,7 @@ export const convertBufferToImageV1 = (outputFilePath: string, buffer: any) =>
                 resolve(true);
             }, 5000);
         } catch (error) {
+            logger.error(`Something went Wrong! :${error}`);
             reject(false);
         }
     });

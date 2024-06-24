@@ -74,7 +74,7 @@ class ServiceError extends ErrorResponse {
     }
 }
 
-class RefinePromptInputVaribalesError extends Error {
+class RefinePromptInputVariablesError extends Error {
     statusCode: number;
     constructor(promptTemplate: string, missingInputVariables: string) {
         super(
@@ -94,5 +94,5 @@ export default {
     PdfSizeError,
     PdfNotParsedError,
     ServiceError,
-    RefinePromptInputVaribalesError,
+    RefinePromptInputVariablesError,
 };

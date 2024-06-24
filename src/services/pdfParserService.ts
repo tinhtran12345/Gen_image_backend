@@ -71,7 +71,7 @@ class PdfParserService {
             logger.warn("PDF not parsed");
             throw new handleError.PdfNotParsedError();
         }
-        logger.info("PDF parsed successfully");
+
         return this.postProcessText(output);
     };
 }

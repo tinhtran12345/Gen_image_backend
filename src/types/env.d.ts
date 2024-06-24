@@ -8,6 +8,6 @@ export interface EnvConfig {
         apiKey: string;
         apiSecret: string;
     };
-    readonly stableDiffusionKey: string;
+    readonly huggingFaceKey: string;
     readonly corsOrigin: string;
 }
