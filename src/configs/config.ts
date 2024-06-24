@@ -1,4 +1,4 @@
-import EnvConfig from "../types/envConfig";
+import { EnvConfig } from "../types/env";
 import * as dotenv from "dotenv";
 dotenv.config();
 import { validateSchema } from "../utils/validation";
@@ -18,7 +18,7 @@ const envValues = (schema: any) => {
                 cloudinaryKey: process.env.API_KEY,
                 cloudinarySecret: process.env.API_SECRET,
                 // openaiKey: process.env.OPENAI_KEY,
-                stableDiffusionKey: process.env.STABLE_DIFFUSION_KEY,
+                huggingFaceKey: process.env.HUGGING_FACE_KEY,
                 corsOrigin: process.env.CORS_ORIGIN,
             };
             break;
@@ -31,7 +31,7 @@ const envValues = (schema: any) => {
                 cloudinaryKey: process.env.PRO_API_KEY,
                 cloudinarySecret: process.env.PRO_API_SECRET,
                 // openaiKey: process.env.OPENAI_KEY,
-                stableDiffusionKey: process.env.PRO_STABLE_DIFFUSION_KEY,
+                huggingFaceKey: process.env.HUGGING_FACE_KEY,
                 corsOrigin: process.env.PRO_CORS_ORIGIN,
             };
             break;
@@ -44,7 +44,7 @@ const envValues = (schema: any) => {
                 cloudinaryKey: process.env.TEST_API_KEY,
                 cloudinarySecret: process.env.TEST_API_SECRET,
                 // openaiKey: process.env.OPENAI_KEY,
-                stableDiffusionKey: process.env.TEST_STABLE_DIFFUSION_KEY,
+                huggingFaceKey: process.env.HUGGING_FACE_KEY,
                 corsOrigin: process.env.TEST_CORS_ORIGIN,
             };
             break;
@@ -73,7 +73,7 @@ export const envConfig: EnvConfig = {
         apiKey: envConfigValues.cloudinaryKey,
         apiSecret: envConfigValues.cloudinarySecret,
     },
-    stableDiffusionKey: envConfigValues.stableDiffusionKey,
+    huggingFaceKey: envConfigValues.huggingFaceKey,
     corsOrigin: envConfigValues.corsOrigin,
 };
 

@@ -5,6 +5,11 @@ export type ImageInput = {
     imageUrl: string;
 };
 
+export type Model = {
+    name: string;
+    apiKey?: string;
+};
+
 export interface ImageOutput extends Document {
     imageUrl: string;
     prompt: string;

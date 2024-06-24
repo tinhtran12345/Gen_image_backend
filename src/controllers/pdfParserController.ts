@@ -19,7 +19,6 @@ class PdfParserController {
             const text = await pdfParserService.parserPdfFromLocalPath(
                 filePath
             );
-            logger.info("PDF Controller successfully parsed!!");
             await deleteFileLocal(filePath);
 
             return res.status(200).json({

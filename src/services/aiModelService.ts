@@ -1,3 +1,4 @@
+import axios from "axios";
 import { envConfig } from "../configs/config";
 
 class BaseModelService {
@@ -17,7 +18,7 @@ class StableDiffusionModel extends BaseModelService {
     public Post = async (data: string): Promise<any> => {
         const response = await fetch(`${this.apiUrl}/${this.modelId}`, {
             headers: {
-                Authorization: `Bearer ${envConfig.stableDiffusionKey}`,
+                Authorization: `Bearer ${envConfig.huggingFaceKey}`,
             },
 
             method: "POST",
@@ -31,8 +32,29 @@ class StableDiffusionModel extends BaseModelService {
         return buffer;
     };
 }
+class MetaLLModel extends BaseModelService {
+    constructor(apiUrl: string, modelId: string) {
+        super(apiUrl, modelId);
+    }
+
+    public Post = async (data: string): Promise<any> => {
+        const response = await axios(`${this.apiUrl}/${this.modelId}`, {
+            headers: {
+                Authorization: `Bearer ${envConfig.huggingFaceKey}`,
+            },
+
+            method: "POST",
+            data: {
+                inputs: data,
+            },
+        });
+
+        return response.data;
+    };
+}
 
 export default {
     StableDiffusionModel,
     BaseModelService,
+    MetaLLModel,
 };

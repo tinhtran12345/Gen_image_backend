@@ -5,6 +5,7 @@ import cors from "cors";
 
 import imageRouter from "./routes/imageRoute";
 import pdfParserRouter from "./routes/pdfParserRoute";
+import jsonRouter from "./routes/jsonRoute";
 import handleError from "./exceptions/handleError";
 import { validateApiKey } from "./middlewares/validateApiKey";
 import { envConfig } from "./configs/config";
@@ -41,7 +42,7 @@ app.get("/health", (req: Request, res: Response) => {
 
 app.use("/api/v1", validateApiKey, imageRouter);
 app.use("/api/v1/parsers-pdf", validateApiKey, pdfParserRouter);
-
+app.use("/api/v1/json", validateApiKey, jsonRouter);
 // Not found
 
 app.use((req: Request, res: Response, next: NextFunction) => {
