@@ -30,6 +30,7 @@ class ImageService {
         const outputFilePath = `public/images/${outputFileName}.jpeg`;
         const buffer = await model.Post(prompt);
 
+        // convert buffer to image files
         const saveImage = await convertBufferToImageAndSave(
             outputFilePath,
             buffer

@@ -16,23 +16,26 @@ class StableDiffusionModel extends BaseModelService {
     }
 
     public Post = async (data: string): Promise<any> => {
-        const response = await fetch(`${this.apiUrl}/${this.modelId}`, {
+        const response = await axios(`${this.apiUrl}/${this.modelId}`, {
             headers: {
                 Authorization: `Bearer ${envConfig.huggingFaceKey}`,
             },
 
             method: "POST",
-            body: JSON.stringify(data),
+            data: {
+                inputs: JSON.stringify(data),
+            },
+            responseType: "arraybuffer",
         });
 
         // Write and save image
-        const arrayBuffer = await response.arrayBuffer();
+        const arrayBuffer = await response.data;
 
         const buffer = Buffer.from(arrayBuffer);
         return buffer;
     };
 }
-class MetaLLModel extends BaseModelService {
+class MetaLLmModel extends BaseModelService {
     constructor(apiUrl: string, modelId: string) {
         super(apiUrl, modelId);
     }
@@ -56,5 +59,5 @@ class MetaLLModel extends BaseModelService {
 export default {
     StableDiffusionModel,
     BaseModelService,
-    MetaLLModel,
+    MetaLLmModel,
 };

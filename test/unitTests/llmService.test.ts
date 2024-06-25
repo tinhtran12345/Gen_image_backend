@@ -1,5 +1,4 @@
 import { PromptTemplate } from "@langchain/core/prompts";
-import logger from "../../src/middlewares/logger";
 import llmService from "../../src/services/llmService";
 
 describe("LlmserviceService", () => {

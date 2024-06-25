@@ -7,7 +7,6 @@ import { ChatAnthropic } from "@langchain/anthropic";
 import aiModelService from "./aiModelService";
 import { HuggingFaceModel } from "../utils/constant";
 import { Model } from "../types";
-import { log } from "console";
 
 class LlmService {
     splitDocument = async (
@@ -53,16 +52,23 @@ class LlmService {
         }
     };
 
+    retrieveModelFromHuggingFace = (apiUrl: string, modelId: string) => {
+        const llm = new aiModelService.MetaLLmModel(apiUrl, modelId);
+        return llm;
+    };
+
     generateOutput = async (
         promptTemplate: PromptTemplate,
         chainValues: ChainValues
     ) => {
         const { apiUrl, modelId } = HuggingFaceModel.metaLLM;
         // retrieve model
-        const llm = new aiModelService.MetaLLModel(apiUrl, modelId);
+        const llm = this.retrieveModelFromHuggingFace(apiUrl, modelId);
         try {
             const prompt = await promptTemplate.format(chainValues);
+
             const output = await llm.Post(prompt);
+
             return output;
         } catch (error) {
             logger.error(`Something went wrong!: ${error}`);
