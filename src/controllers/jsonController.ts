@@ -73,6 +73,7 @@ class JsonController {
 
     analyzeJsonOutput = async (req: Request, res: Response) => {
         const { jsonOutput, jsonSchema, originalText } = req.body;
+
         if (!jsonOutput || !jsonSchema || !originalText) {
             throw new handleError.BadRequestError("Missing values!");
         }

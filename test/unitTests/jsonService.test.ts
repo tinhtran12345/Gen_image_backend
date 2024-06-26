@@ -5,7 +5,7 @@ describe("JsonService", () => {
         expect(jsonService).toBeDefined();
     });
 
-    describe(" extractWithSchema", () => {
+    describe("extractWithSchema", () => {
         it("should return a output", async () => {
             const text = "This is text";
             const schema = '{"title": "string", "description": "string"}';
