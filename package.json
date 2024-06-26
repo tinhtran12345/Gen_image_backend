@@ -35,7 +35,6 @@
     },
     "dependencies": {
         "@langchain/anthropic": "^0.2.2",
-        "@langchain/openai": "^0.2.0",
         "@types/multer": "^1.4.11",
         "axios": "^1.7.2",
         "cloudinary": "^2.0.2",

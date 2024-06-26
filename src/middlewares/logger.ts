@@ -2,7 +2,7 @@ import { createLogger, format, transports } from "winston";
 import { envConfig } from "../configs/config";
 
 const logger = createLogger({
-    level: envConfig.node_env === "production" ? "info" : "debug",
+    level: envConfig.node_env === "pro" ? "info" : "debug",
     format: format.combine(
         format.timestamp({
             format: "YYYY-MM-DD HH:mm:ss",

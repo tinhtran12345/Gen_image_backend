@@ -1,5 +1,4 @@
 import { PromptTemplate } from "@langchain/core/prompts";
-import logger from "../../src/middlewares/logger";
 import llmService from "../../src/services/llmService";
 
 describe("LlmserviceService", () => {
@@ -37,5 +36,17 @@ describe("LlmserviceService", () => {
             );
             expect(output).toBeDefined();
         });
+
+        // it("should throw if the chain values do not match the input variables of the prompt template", async () => {
+        //     const promptTemplate = new PromptTemplate({
+        //         template:
+        //             "What is a good name for a company that makes {product}?",
+        //         inputVariables: ["product"],
+        //     });
+        //     const output = await llmService.generateOutput(promptTemplate, {
+        //         wrongValue: "cars",
+        //     });
+        //     expect(output).rejects.toThrow(new handleError.ServiceError());
+        // });
     });
 });

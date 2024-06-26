@@ -46,4 +46,9 @@ export const HuggingFaceModel = {
         apiUrl: "https://api-inference.huggingface.co/models/meta-llama",
         modelId: "Meta-Llama-3-8B-Instruct",
     },
+
+    mixtral: {
+        apiUrl: "https://api-inference.huggingface.co/models/mistralai",
+        modelId: "Mixtral-8x7B-Instruct-v0.1",
+    },
 };
