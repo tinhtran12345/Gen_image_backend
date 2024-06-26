@@ -1,14 +1,14 @@
-"use strict";
+'use strict'
 
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose'
 
 interface ImageModel {
-    prompt: string;
-    imageUrl: string;
+    prompt: string
+    imageUrl: string
 }
 
-const DOCUMENT_NAME: string = "Image";
-const COLLECTION_NAME: string = "Images";
+const DOCUMENT_NAME: string = 'Image'
+const COLLECTION_NAME: string = 'Images'
 
 const imageSchema = new Schema<ImageModel>(
     {
@@ -24,7 +24,7 @@ const imageSchema = new Schema<ImageModel>(
     {
         timestamps: true,
         collection: COLLECTION_NAME,
-    }
-);
+    },
+)
 
-export const imageModel = model<ImageModel>(DOCUMENT_NAME, imageSchema);
+export const imageModel = model<ImageModel>(DOCUMENT_NAME, imageSchema)

@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
 class AudioController {
-    processingAudio = async () => {};
+    processingAudio = async () => {}
 
-    convertAudio = async () => {};
+    convertAudio = async () => {}
 }
 
-export default new AudioController();
+export default new AudioController()

@@ -1,27 +1,27 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose'
 
 export type ImageInput = {
-    prompt: string;
-    imageUrl: string;
-};
+    prompt: string
+    imageUrl: string
+}
 
 export type Model = {
-    name: string;
-    apiKey?: string;
-};
+    name: string
+    apiKey?: string
+}
 
 export interface ImageOutput extends Document {
-    imageUrl: string;
-    prompt: string;
-    createdAt: Date;
-    updateAt: Date;
+    imageUrl: string
+    prompt: string
+    createdAt: Date
+    updateAt: Date
 }
 
 export type RefineParams = {
-    chunkSize: number;
-    overlap: number;
-};
+    chunkSize: number
+    overlap: number
+}
 
 export type RefineRecap = RefineParams & {
-    llmCallCount: number;
-};
+    llmCallCount: number
+}
