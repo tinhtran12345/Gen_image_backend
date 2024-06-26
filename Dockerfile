@@ -8,4 +8,4 @@ RUN npm install
 # Install Poppler
 RUN apk add --no-cache poppler-utils
 COPY . .
-CMD npm run dev
+CMD npm run start
