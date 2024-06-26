@@ -1,15 +1,15 @@
-"use strict";
+'use strict'
 
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose'
 
 interface IApiKeyModel {
     // organizationId: string;
-    organization: string;
-    key: string;
+    organization: string
+    key: string
 }
 
-const DOCUMENT_NAME: string = "ApiKey";
-const COLLECTION_NAME: string = "ApiKeys";
+const DOCUMENT_NAME: string = 'ApiKey'
+const COLLECTION_NAME: string = 'ApiKeys'
 
 const apiKeySchema = new Schema<IApiKeyModel>(
     {
@@ -29,7 +29,7 @@ const apiKeySchema = new Schema<IApiKeyModel>(
     {
         timestamps: true,
         collection: COLLECTION_NAME,
-    }
-);
+    },
+)
 
-export const apiKeyModel = model<IApiKeyModel>(DOCUMENT_NAME, apiKeySchema);
+export const apiKeyModel = model<IApiKeyModel>(DOCUMENT_NAME, apiKeySchema)

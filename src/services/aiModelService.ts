@@ -1,18 +1,18 @@
-import axios from "axios";
-import { envConfig } from "../configs/config";
+import axios from 'axios'
+import { envConfig } from '../configs/config'
 
 class BaseModelService {
-    protected apiUrl: string;
-    protected modelId: string;
+    protected apiUrl: string
+    protected modelId: string
     public constructor(apiUrl: string, modelId: string) {
-        this.apiUrl = apiUrl;
-        this.modelId = modelId;
+        this.apiUrl = apiUrl
+        this.modelId = modelId
     }
 }
 
 class StableDiffusionModel extends BaseModelService {
     constructor(apiUrl: string, modelId: string) {
-        super(apiUrl, modelId);
+        super(apiUrl, modelId)
     }
 
     public Post = async (data: string): Promise<any> => {
@@ -21,23 +21,23 @@ class StableDiffusionModel extends BaseModelService {
                 Authorization: `Bearer ${envConfig.huggingFaceKey}`,
             },
 
-            method: "POST",
+            method: 'POST',
             data: {
                 inputs: JSON.stringify(data),
             },
-            responseType: "arraybuffer",
-        });
+            responseType: 'arraybuffer',
+        })
 
         // Write and save image
-        const arrayBuffer = await response.data;
+        const arrayBuffer = await response.data
 
-        const buffer = Buffer.from(arrayBuffer);
-        return buffer;
-    };
+        const buffer = Buffer.from(arrayBuffer)
+        return buffer
+    }
 }
 class MetaLLmModel extends BaseModelService {
     constructor(apiUrl: string, modelId: string) {
-        super(apiUrl, modelId);
+        super(apiUrl, modelId)
     }
 
     public Post = async (data: string): Promise<any> => {
@@ -46,18 +46,18 @@ class MetaLLmModel extends BaseModelService {
                 Authorization: `Bearer ${envConfig.huggingFaceKey}`,
             },
 
-            method: "POST",
+            method: 'POST',
             data: {
                 inputs: data,
             },
-        });
+        })
 
-        return response.data;
-    };
+        return response.data
+    }
 }
 
 export default {
     StableDiffusionModel,
     BaseModelService,
     MetaLLmModel,
-};
+}

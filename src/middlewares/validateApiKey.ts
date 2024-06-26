@@ -1,26 +1,26 @@
-import { NextFunction, Request, Response } from "express";
-import apiKeyService from "../services/apiKeyService";
-import handleError from "../exceptions/handleError";
-import logger from "./logger";
+import { NextFunction, Request, Response } from 'express'
+import apiKeyService from '../services/apiKeyService'
+import handleError from '../exceptions/handleError'
+import logger from './logger'
 
 export const validateApiKey = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ) => {
     // validation apikey
-    const apiKey = req.header("x-api-key");
+    const apiKey = req.header('x-api-key')
     try {
         if (!apiKey) {
-            throw new handleError.NotFoundError("ApiKey not found!", 500);
+            throw new handleError.NotFoundError('ApiKey not found!', 500)
         }
-        const checkApiKey = await apiKeyService.findApiKey(apiKey);
+        const checkApiKey = await apiKeyService.findApiKey(apiKey)
         if (!checkApiKey) {
-            throw new handleError.UnAuthorizedError("Wrong apiKey!");
+            throw new handleError.UnAuthorizedError('Wrong apiKey!')
         }
-        next();
+        next()
     } catch (error) {
-        logger.error(error);
-        next(error);
+        logger.error(error)
+        next(error)
     }
-};
+}

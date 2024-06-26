@@ -1,4 +1,4 @@
-import { PromptTemplate } from "@langchain/core/prompts";
+import { PromptTemplate } from '@langchain/core/prompts'
 
 const jsonZeroShotSchemaExtractionTemplate: string = `
 You are a highly efficient text processing application
@@ -14,7 +14,7 @@ Input:
 {context}
 -------------------
 Output:
-`;
+`
 
 const jsonZeroShotSchemaExtractionRefineTemplate: string = `
 You are a highly efficient text processing application
@@ -38,7 +38,7 @@ Please generate the output JSON object containing the necessary information and 
 If the input text contains any attributes not mentioned in the schema, please disregard them.
 Do not add any fields that are not in the schema.
 Your outputs must ONLY be in JSON format and follow the schema specified above.
-`;
+`
 
 const jsonOneShotExtractionTemplate: string = `
 You are a highly efficient text processing application
@@ -57,7 +57,7 @@ Input:
 {context}
 -------------------
 Output:
-`;
+`
 
 const jsonAnalysisTemplate: string = `
 You are a highly efficient text processing application
@@ -82,7 +82,7 @@ Please output your analysis in the following json format
 {outputFormat}
 
 Your analysis:
-`;
+`
 
 const jsonClassificationTemplate: string = `
 Given a list of possible categories and the text to classify, use your capabilities to determine the most fitting category for the provided text.
@@ -103,34 +103,34 @@ Please provide your output in the following format:
 {outputFormat}
 
 Your Classification:
-`;
+`
 
 export const jsonZeroShotSchemaExtraction = new PromptTemplate({
-    inputVariables: ["context", "jsonSchema"],
+    inputVariables: ['context', 'jsonSchema'],
     template: jsonZeroShotSchemaExtractionTemplate,
-});
+})
 
 export const jsonZeroShotSchemaExtractionRefine = new PromptTemplate({
-    inputVariables: ["jsonSchema", "context", "existing_answer"],
+    inputVariables: ['jsonSchema', 'context', 'existing_answer'],
     template: jsonZeroShotSchemaExtractionRefineTemplate,
-});
+})
 
 export const jsonOneShotExtraction = new PromptTemplate({
-    inputVariables: ["exampleInput", "exampleOutput", "context"],
+    inputVariables: ['exampleInput', 'exampleOutput', 'context'],
     template: jsonOneShotExtractionTemplate,
-});
+})
 
 export const jsonAnalysis = new PromptTemplate({
     inputVariables: [
-        "jsonSchema",
-        "originalText",
-        "jsonOutput",
-        "outputFormat",
+        'jsonSchema',
+        'originalText',
+        'jsonOutput',
+        'outputFormat',
     ],
     template: jsonAnalysisTemplate,
-});
+})
 
 export const jsonClassification = new PromptTemplate({
-    inputVariables: ["categories", "text", "outputFormat"],
+    inputVariables: ['categories', 'text', 'outputFormat'],
     template: jsonClassificationTemplate,
-});
+})

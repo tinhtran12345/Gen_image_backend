@@ -1,15 +1,15 @@
-import { EnvConfig } from "../types/env";
-import * as dotenv from "dotenv";
-dotenv.config();
-import { validateSchema } from "../utils/validation";
-import { v2 as cloudinary } from "cloudinary";
+import { EnvConfig } from '../types/env'
+import * as dotenv from 'dotenv'
+dotenv.config()
+import { validateSchema } from '../utils/validation'
+import { v2 as cloudinary } from 'cloudinary'
 
 const envValues = (schema: any) => {
-    const node_env = process.env.NODE_ENV || "dev";
-    let checkSchema;
+    const node_env = process.env.NODE_ENV || 'dev'
+    let checkSchema
 
     switch (node_env) {
-        case "dev":
+        case 'dev':
             checkSchema = {
                 node_env: process.env.NODE_ENV,
                 port: process.env.PORT,
@@ -20,9 +20,9 @@ const envValues = (schema: any) => {
                 // openaiKey: process.env.OPENAI_KEY,
                 huggingFaceKey: process.env.HUGGING_FACE_KEY,
                 corsOrigin: process.env.CORS_ORIGIN,
-            };
-            break;
-        case "pro":
+            }
+            break
+        case 'pro':
             checkSchema = {
                 node_env: process.env.NODE_ENV,
                 port: process.env.PRO_PORT,
@@ -33,9 +33,9 @@ const envValues = (schema: any) => {
                 // openaiKey: process.env.OPENAI_KEY,
                 huggingFaceKey: process.env.HUGGING_FACE_KEY,
                 corsOrigin: process.env.PRO_CORS_ORIGIN,
-            };
-            break;
-        case "test":
+            }
+            break
+        case 'test':
             checkSchema = {
                 node_env: process.env.NODE_ENV,
                 port: process.env.TEST_PORT,
@@ -46,20 +46,20 @@ const envValues = (schema: any) => {
                 // openaiKey: process.env.OPENAI_KEY,
                 huggingFaceKey: process.env.HUGGING_FACE_KEY,
                 corsOrigin: process.env.TEST_CORS_ORIGIN,
-            };
-            break;
+            }
+            break
     }
 
-    const { value, error } = schema.validate(checkSchema);
+    const { value, error } = schema.validate(checkSchema)
 
     if (error) {
-        console.log(error);
-        return;
+        console.log(error)
+        return
     }
-    return value;
-};
+    return value
+}
 
-const envConfigValues = envValues(validateSchema);
+const envConfigValues = envValues(validateSchema)
 
 // config env
 
@@ -75,11 +75,11 @@ export const envConfig: EnvConfig = {
     },
     huggingFaceKey: envConfigValues.huggingFaceKey,
     corsOrigin: envConfigValues.corsOrigin,
-};
+}
 
 // Cloudinary setup
 cloudinary.config({
     cloud_name: envConfig.cloudinary.name,
     api_key: envConfig.cloudinary.apiKey,
     api_secret: envConfig.cloudinary.apiSecret,
-});
+})
